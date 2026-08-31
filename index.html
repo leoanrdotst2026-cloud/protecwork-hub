@@ -3,36 +3,30 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
-<title>Protecwork Hub — Carregando…</title>
+<title>Protecwork Hub</title>
 <style>
-body{margin:0;background:#090D0B;color:#F5F7F6;font-family:system-ui,sans-serif;display:grid;place-items:center;min-height:100vh}
-.box{text-align:center;padding:24px}
-.bar{width:240px;height:6px;background:rgba(255,255,255,.1);border-radius:6px;overflow:hidden;margin:18px auto 0}
-.bar i{display:block;height:100%;width:0;background:linear-gradient(90deg,#087A38,#39FF88);transition:width .25s}
-.logo{width:48px;height:48px;border-radius:14px;margin:0 auto 14px;display:grid;place-items:center;background:linear-gradient(150deg,#39FF88,#087A38);box-shadow:0 8px 24px -8px #00C853}
+:root{--bg:#090D0B;--g:#00C853;--g2:#39FF88;--tx:#F5F7F6;--tx2:#9BA59F}
+*{box-sizing:border-box}
+body{margin:0;min-height:100vh;display:grid;place-items:center;background:var(--bg);color:var(--tx);
+font-family:-apple-system,BlinkMacSystemFont,Segoe UI,system-ui,sans-serif;padding:24px;text-align:center}
+.card{max-width:420px;padding:28px 24px;border-radius:24px;background:linear-gradient(157deg,rgba(255,255,255,.085),rgba(255,255,255,.03));
+border:1px solid rgba(255,255,255,.1);box-shadow:0 18px 44px -18px #000}
+.logo{width:52px;height:52px;border-radius:16px;margin:0 auto 16px;display:grid;place-items:center;
+background:linear-gradient(150deg,var(--g2),#087A38);box-shadow:0 8px 24px -8px var(--g)}
+h1{font-size:22px;margin:0 0 8px;font-weight:700;letter-spacing:-.02em}
+p{margin:0;color:var(--tx2);font-size:14.5px;line-height:1.5}
+.btn{display:inline-flex;margin-top:18px;padding:12px 18px;border-radius:14px;background:linear-gradient(135deg,var(--g2),var(--g));
+color:#04150C;font-weight:700;text-decoration:none;font-size:14px}
+.note{margin-top:16px;font-size:12.5px;color:#65706A}
 </style>
 </head>
 <body>
-<div class="box">
-  <div class="logo"><svg width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="#04150C" stroke-width="2.3"><path d="M12 2l8 3.5v6c0 5-3.4 9.3-8 10.5-4.6-1.2-8-5.5-8-10.5v-6z"/><path d="M9 12l2 2 4-4"/></svg></div>
-  <div style="font-size:20px;font-weight:700">Protecwork Hub</div>
-  <div style="color:#9BA59F;font-size:14px;margin-top:6px">Carregando o sistema…</div>
-  <div class="bar"><i id="p"></i></div>
+<div class="card">
+  <div class="logo"><svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="#04150C" stroke-width="2.3" stroke-linecap="round" stroke-linejoin="round"><path d="M12 2l8 3.5v6c0 5-3.4 9.3-8 10.5-4.6-1.2-8-5.5-8-10.5v-6z"/><path d="M9 12l2 2 4-4"/></svg></div>
+  <h1>Protecwork Hub</h1>
+  <p>O sistema está sendo publicado. Em instantes o app completo estará disponível neste mesmo link.</p>
+  <p class="note">Atualize a página em cerca de 1 minuto.</p>
 </div>
-<script>
-(async()=>{
-  const n=20,parts=[];
-  for(let i=0;i<n;i++){
-    const r=await fetch('c'+i+'.txt');
-    if(!r.ok) throw new Error('chunk c'+i+' HTTP '+r.status);
-    parts.push(await r.text());
-    document.getElementById('p').style.width=((i+1)/n*100)+'%';
-  }
-  document.open();document.write(parts.join(''));document.close();
-})().catch(e=>{
-  document.body.innerHTML='<div class="box"><b>Erro ao carregar</b><p style="color:#FF4D4F;font-size:14px">'+e.message+'</p></div>';
-  console.error(e);
-});
-</script>
+<script>setTimeout(()=>location.reload(),45000)</script>
 </body>
 </html>
