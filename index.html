@@ -19,20 +19,19 @@ body{margin:0;background:#090D0B;color:#F5F7F6;font-family:system-ui,sans-serif;
 </div>
 <script>
 (async () => {
-  const n = 4;
+  const n = 8;
   const parts = [];
   for (let i = 0; i < n; i++) {
-    const r = await fetch('chunk' + i + '.txt');
-    if (!r.ok) throw new Error('Falha ao carregar chunk' + i);
+    const r = await fetch('c' + i + '.txt');
+    if (!r.ok) throw new Error('Falha ao carregar c' + i + '.txt (' + r.status + ')');
     parts.push(await r.text());
     document.getElementById('p').style.width = ((i+1)/n*100) + '%';
   }
-  const html = parts.join('');
   document.open();
-  document.write(html);
+  document.write(parts.join(''));
   document.close();
 })().catch(e => {
-  document.body.innerHTML = '<div class="box"><b>Erro ao carregar</b><p style="color:#9BA59F">' + e.message + '</p><p style="font-size:12px;color:#65706A">Abra o console para detalhes.</p></div>';
+  document.body.innerHTML = '<div class="box"><b>Erro ao carregar</b><p style="color:#9BA59F">' + e.message + '</p></div>';
   console.error(e);
 });
 </script>
