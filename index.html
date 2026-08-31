@@ -21,7 +21,7 @@ body{margin:0;background:#090D0B;color:#F5F7F6;font-family:system-ui,sans-serif;
 </div>
 <script>
 (async()=>{
-  const n=10,parts=[];
+  const n=20,parts=[];
   for(let i=0;i<n;i++){
     const r=await fetch('c'+i+'.txt');
     if(!r.ok) throw new Error('chunk c'+i+' HTTP '+r.status);
