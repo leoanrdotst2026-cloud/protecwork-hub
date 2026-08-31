@@ -3,47 +3,38 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
-<title>Protecwork Hub — Gestão Comercial, Orçamentos e Oportunidades</title>
-<link rel="stylesheet" href="styles.css">
+<title>Protecwork Hub — Carregando…</title>
+<style>
+body{margin:0;background:#090D0B;color:#F5F7F6;font-family:system-ui,sans-serif;display:grid;place-items:center;min-height:100vh}
+.box{text-align:center}
+.bar{width:220px;height:6px;background:rgba(255,255,255,.1);border-radius:6px;overflow:hidden;margin:16px auto}
+.bar i{display:block;height:100%;width:0;background:linear-gradient(90deg,#087A38,#39FF88);transition:width .3s}
+</style>
 </head>
 <body>
-<div id="aura"><div class="orb o1"></div><div class="orb o2"></div><div class="orb o3"></div></div>
-<canvas id="stars"></canvas>
-<div id="grain"></div>
-
-<div id="app">
-  <aside id="side" class="glass drop">
-    <div class="brand">
-      <div class="logo"><svg viewBox="0 0 24 24" fill="none" stroke="#04150C" stroke-width="2.3" stroke-linecap="round" stroke-linejoin="round"><path d="M12 2l8 3.5v6c0 5-3.4 9.3-8 10.5-4.6-1.2-8-5.5-8-10.5v-6z"/><path d="M9 12l2 2 4-4"/></svg></div>
-      <div class="bt"><b>Protecwork Hub</b><span>Gestão comercial</span></div>
-    </div>
-    <nav class="nav" id="nav"></nav>
-    <div class="side-foot" onclick="go('config')">
-      <div class="avatar">LS</div>
-      <div class="sf-txt"><b style="font-size:13.5px;display:block">Leonardo Santos</b><span class="tiny mut">Administrador</span></div>
-    </div>
-  </aside>
-
-  <main id="main">
-    <header id="top" class="glass">
-      <div class="iconbtn" id="burger" onclick="document.body.classList.toggle('open')" aria-label="Abrir menu"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor"><path d="M3 6h18M3 12h18M3 18h18"/></svg></div>
-      <div class="iconbtn" onclick="document.body.classList.toggle('rail')" id="railbtn" aria-label="Recolher menu"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor"><path d="M4 5h16M4 12h10M4 19h16"/></svg></div>
-      <div class="search" onclick="openCmd()"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="11" cy="11" r="7"/><path d="M20 20l-3.5-3.5"/></svg><span id="stxt">Buscar clientes, orçamentos, treinamentos…</span><kbd>Ctrl K</kbd></div>
-      <button class="btn p" onclick="quickNew()"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor"><path d="M12 5v14M5 12h14"/></svg><span class="ntxt">Nova ação</span></button>
-      <div class="iconbtn" onclick="openNotif()" id="bell" aria-label="Notificações"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor"><path d="M18 8a6 6 0 10-12 0c0 7-3 8-3 8h18s-3-1-3-8"/><path d="M13.7 21a2 2 0 01-3.4 0"/></svg></div>
-    </header>
-    <div id="view"></div>
-  </main>
+<div class="box">
+  <div style="font-size:22px;font-weight:700;margin-bottom:8px">Protecwork Hub</div>
+  <div style="color:#9BA59F;font-size:14px">Carregando o sistema…</div>
+  <div class="bar"><i id="p"></i></div>
 </div>
-
-<button class="fab" onclick="quickNew()" aria-label="Ação rápida"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor"><path d="M12 5v14M5 12h14"/></svg></button>
-<div id="veil"></div>
-<div id="cmd"><div class="box"><input id="cmdi" placeholder="Buscar ou executar um comando…" autocomplete="off"><div class="res" id="cmdr"></div></div></div>
-<div id="toasts"></div>
-<script src="core.js"></script>
-<script src="ui.js"></script>
-<script src="dashboard.js"></script>
-<script src="budgets.js"></script>
-<script src="modules.js"></script>
+<script>
+(async () => {
+  const n = 4;
+  const parts = [];
+  for (let i = 0; i < n; i++) {
+    const r = await fetch('chunk' + i + '.txt');
+    if (!r.ok) throw new Error('Falha ao carregar chunk' + i);
+    parts.push(await r.text());
+    document.getElementById('p').style.width = ((i+1)/n*100) + '%';
+  }
+  const html = parts.join('');
+  document.open();
+  document.write(html);
+  document.close();
+})().catch(e => {
+  document.body.innerHTML = '<div class="box"><b>Erro ao carregar</b><p style="color:#9BA59F">' + e.message + '</p><p style="font-size:12px;color:#65706A">Abra o console para detalhes.</p></div>';
+  console.error(e);
+});
+</script>
 </body>
 </html>
